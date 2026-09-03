@@ -1,90 +1,85 @@
 import React from 'react';
-import { Flame, ShieldAlert, Cpu, Activity, FileText, BarChart2, BookOpen, Layers, Zap, ChevronDown } from 'lucide-react';
+import { ShieldAlert, Cpu, Activity, BarChart2, BookOpen, Layers, Zap, ChevronDown, Radio } from 'lucide-react';
+import NeuralCore from './NeuralCore';
 
 export default function Header({ activeTab, setActiveTab, sifCount, totalCount, userRole, setUserRole }) {
   return (
-    <header className="glass-panel mb-8 border border-white/10 px-6 py-5 rounded-2xl shadow-2xl relative overflow-hidden">
-      {/* Background Subtle Gradient Glow */}
-      <div className="absolute -top-24 -left-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <header className="glass-panel mb-8 p-6 rounded-3xl border border-white/15 shadow-2xl relative overflow-hidden animate-holo-boot">
+      {/* Ambient Lighting Accents */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-5 relative z-10">
-        {/* Left: Branding & Organization */}
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-600 to-red-600 flex items-center justify-center shadow-xl shadow-amber-500/25 border border-amber-300/30">
-              <Flame className="w-8 h-8 text-slate-950 animate-pulse" />
-            </div>
-            <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-slate-950 rounded-full" title="System Online" />
-          </div>
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-6 relative z-10">
+        {/* Left: Branding & Holographic AI Neural Core */}
+        <div className="flex items-center gap-5">
+          <NeuralCore sifCount={sifCount} totalCount={totalCount} />
 
           <div>
-            <div className="flex items-center gap-2.5">
-              <span className="font-extrabold text-xl tracking-wider text-white">OIL INDIA LIMITED</span>
-              <span className="badge badge-amber text-[10px] py-0.5">SIH26165</span>
+            <div className="flex items-center gap-3">
+              <span className="font-black text-2xl tracking-wider text-white gradient-text-oil">
+                OIL INDIA LIMITED
+              </span>
+              <span className="badge badge-amber font-mono text-[10px] py-0.5">SIH26165</span>
             </div>
-            <h1 className="text-xs font-bold text-cyan-400 flex items-center gap-2 mt-0.5 tracking-wide">
-              <Cpu className="w-4 h-4 text-cyan-400" /> SIF Precursor AI & NLP Intelligence Engine
+            <h1 className="text-xs font-extrabold text-cyan-400 flex items-center gap-2 mt-1 tracking-widest uppercase">
+              <Cpu className="w-4 h-4 text-cyan-400 animate-pulse" /> AI/NLP SIF Intelligence Command System
             </h1>
           </div>
         </div>
 
-        {/* Center: System Status & Quick SIF Ticker */}
-        <div className="flex flex-wrap items-center gap-3 bg-slate-950/80 px-5 py-2.5 rounded-xl border border-white/10 shadow-inner">
-          <div className="flex items-center gap-2.5">
-            <span className="relative flex h-3.5 w-3.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500"></span>
-            </span>
-            <span className="text-xs text-slate-300 font-medium">SIF Alerts:</span>
-            <span className="text-sm font-extrabold text-red-400 font-mono bg-red-950/60 px-2 py-0.5 rounded border border-red-800/40">
-              {sifCount} / {totalCount} Reports
+        {/* Center: Live AI Neural Status Ticker */}
+        <div className="flex flex-wrap items-center gap-4 bg-slate-950/90 px-6 py-3 rounded-2xl border border-white/10 shadow-inner">
+          <div className="flex items-center gap-3">
+            <Radio className="w-4 h-4 text-red-400 animate-pulse" />
+            <span className="text-xs text-slate-300 font-bold uppercase tracking-wider">SIF Threat Radar:</span>
+            <span className="text-sm font-black text-red-400 font-mono bg-red-950/80 px-2.5 py-0.5 rounded-lg border border-red-800/50">
+              {sifCount} / {totalCount} Critical
             </span>
           </div>
 
-          <div className="h-4 w-[1px] bg-slate-800 hidden sm:block" />
+          <div className="h-5 w-[1px] bg-slate-800 hidden sm:block" />
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <Zap className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs text-slate-300">Model:</span>
-            <span className="text-xs text-cyan-300 font-semibold font-mono bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
-              IOGP-NLP v2.4
+            <span className="text-xs text-slate-300 font-bold uppercase tracking-wider">Engine:</span>
+            <span className="text-xs text-cyan-300 font-black font-mono bg-cyan-950/80 px-2.5 py-0.5 rounded-lg border border-cyan-800/50">
+              IOGP-NLP v2.4 ONLINE
             </span>
           </div>
         </div>
 
-        {/* Right: Role & Actions */}
+        {/* Right: Role Selector */}
         <div className="flex items-center gap-3">
-          <div className="bg-slate-900/90 px-3.5 py-1.5 rounded-xl border border-white/10 flex items-center gap-2">
-            <div className="text-right text-[11px]">
-              <span className="text-slate-400 block text-[10px] uppercase font-bold tracking-wider">Active Role</span>
+          <div className="bg-slate-950/90 px-4 py-2 rounded-2xl border border-white/10 flex items-center gap-3 shadow-lg">
+            <div className="text-right">
+              <span className="text-slate-400 block text-[9px] uppercase font-black tracking-widest">Active Commander</span>
               <select
                 value={userRole}
                 onChange={(e) => setUserRole(e.target.value)}
-                className="bg-transparent text-cyan-300 font-bold border-none p-0 text-xs focus:ring-0 cursor-pointer"
+                className="bg-transparent text-cyan-300 font-extrabold border-none p-0 text-xs focus:ring-0 cursor-pointer"
               >
                 <option value="Executive HSE Director">Executive HSE Director</option>
                 <option value="Field HSE Safety Engineer">Field HSE Safety Engineer</option>
                 <option value="Rig Operation Manager">Rig Operation Manager</option>
               </select>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            <ChevronDown className="w-4 h-4 text-slate-400" />
           </div>
         </div>
       </div>
 
-      {/* Navigation Tabs */}
-      <nav className="flex items-center gap-2 mt-6 border-t border-white/10 pt-4 overflow-x-auto">
+      {/* Floating Holographic Navigation Tabs */}
+      <nav className="flex items-center gap-3 mt-6 border-t border-white/10 pt-5 overflow-x-auto">
         <TabButton
           id="overview"
-          label="Executive Dashboard"
+          label="Executive Command"
           icon={BarChart2}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <TabButton
           id="live"
-          label="Live Incident AI Analyzer"
+          label="Live AI Incident Analyzer"
           icon={Cpu}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -107,7 +102,7 @@ export default function Header({ activeTab, setActiveTab, sifCount, totalCount, 
         />
         <TabButton
           id="knowledge"
-          label="IOGP Safety Energy Standards"
+          label="IOGP Safety Standards"
           icon={BookOpen}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -122,21 +117,21 @@ function TabButton({ id, label, icon: Icon, activeTab, setActiveTab, badge, coun
   return (
     <button
       onClick={() => setActiveTab(id)}
-      className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 relative ${
+      className={`flex items-center gap-3 px-5 py-3 rounded-2xl text-xs font-black whitespace-nowrap transition-all duration-300 ${
         isActive
-          ? 'bg-gradient-to-r from-cyan-600 via-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25 border border-cyan-400/40'
-          : 'text-slate-400 hover:text-slate-100 hover:bg-white/5'
+          ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white shadow-xl shadow-cyan-500/30 border border-cyan-300/50 scale-105'
+          : 'text-slate-400 hover:text-white hover:bg-white/5'
       }`}
     >
       <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-      <span>{label}</span>
+      <span className="tracking-wide">{label}</span>
       {badge && (
-        <span className="bg-amber-400/20 text-amber-300 text-[10px] px-2 py-0.5 rounded-full border border-amber-400/40 font-mono">
+        <span className="bg-amber-400/20 text-amber-300 text-[10px] px-2.5 py-0.5 rounded-full border border-amber-400/50 font-mono">
           {badge}
         </span>
       )}
       {count !== undefined && (
-        <span className="bg-slate-900 text-slate-300 text-[10px] px-2 py-0.5 rounded-full font-mono border border-slate-700">
+        <span className="bg-slate-950 text-slate-300 text-[10px] px-2.5 py-0.5 rounded-full font-mono border border-slate-800">
           {count}
         </span>
       )}

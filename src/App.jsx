@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CelestialBackground from './components/CelestialBackground';
 import Header from './components/Header';
 import ExecutiveDashboard from './components/ExecutiveDashboard';
 import LiveAnalyzer from './components/LiveAnalyzer';
@@ -33,9 +34,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-24">
-      <div className="app-container">
-        {/* Navigation Header */}
+    <div className="min-h-screen bg-[#030712] text-slate-100 font-sans pb-28 relative overflow-x-hidden">
+      {/* 4K Living Celestial Cyberpunk Background */}
+      <CelestialBackground />
+
+      <div className="app-container relative z-10">
+        {/* Navigation Header with Neural Core */}
         <Header
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -45,7 +49,7 @@ export default function App() {
           setUserRole={setUserRole}
         />
 
-        {/* Tab Content Rendering */}
+        {/* Command Center View Modules */}
         <main>
           {activeTab === 'overview' && (
             <ExecutiveDashboard
@@ -82,14 +86,14 @@ export default function App() {
         </main>
       </div>
 
-      {/* Floating Quick Navigation Dock */}
+      {/* Floating Holographic Dock */}
       <QuickDock
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenEmergency={() => handleOpenDirective(sifPrecursors[0] || dataset[0])}
       />
 
-      {/* SIF Emergency Directive Modal */}
+      {/* SIF Emergency Safety Directive Modal */}
       {activeDirectiveIncident && (
         <DirectiveModal
           incident={activeDirectiveIncident}
