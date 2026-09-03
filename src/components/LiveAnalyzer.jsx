@@ -100,7 +100,7 @@ export default function LiveAnalyzer({ initialIncident, onSaveToDataset, onOpenD
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 animate-holo-boot">
       {/* Top Banner */}
       <div className="glass-panel p-6 bg-gradient-to-r from-slate-950 via-cyan-950/30 to-slate-950 border-cyan-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 shadow-2xl">
         <div>
@@ -182,38 +182,42 @@ export default function LiveAnalyzer({ initialIncident, onSaveToDataset, onOpenD
             {/* Metadata Controls */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-[11px] text-slate-400 block font-bold uppercase tracking-wider mb-1">OIL Operational Facility</label>
+                <label className="text-[11px] text-slate-300 block font-bold uppercase tracking-wider mb-1">
+                  OIL Operational Facility
+                </label>
                 <select
                   value={facility}
                   onChange={(e) => setFacility(e.target.value)}
-                  className="w-full text-xs font-semibold"
+                  className="w-full text-xs font-bold bg-[#0b1329] text-white border border-white/20 rounded-xl p-2.5 shadow-inner"
                 >
-                  <option value="Duliajan Drilling Rig #4">Duliajan Drilling Rig #4</option>
-                  <option value="Digboi Refinery Unit 3">Digboi Refinery Unit 3</option>
-                  <option value="Moran Gas Field">Moran Gas Field</option>
-                  <option value="Nahorkatia Tank Farm">Nahorkatia Tank Farm</option>
-                  <option value="Guwahati Pipeline Station 5">Guwahati Pipeline Station 5</option>
-                  <option value="Jorhat Field Ops">Jorhat Field Ops</option>
+                  <option value="Duliajan Drilling Rig #4" className="bg-[#0b1329] text-white">Duliajan Drilling Rig #4</option>
+                  <option value="Digboi Refinery Unit 3" className="bg-[#0b1329] text-white">Digboi Refinery Unit 3</option>
+                  <option value="Moran Gas Field" className="bg-[#0b1329] text-white">Moran Gas Field</option>
+                  <option value="Nahorkatia Tank Farm" className="bg-[#0b1329] text-white">Nahorkatia Tank Farm</option>
+                  <option value="Guwahati Pipeline Station 5" className="bg-[#0b1329] text-white">Guwahati Pipeline Station 5</option>
+                  <option value="Jorhat Field Ops" className="bg-[#0b1329] text-white">Jorhat Field Ops</option>
                 </select>
               </div>
 
               <div>
-                <label className="text-[11px] text-slate-400 block font-bold uppercase tracking-wider mb-1">Report Category</label>
+                <label className="text-[11px] text-slate-300 block font-bold uppercase tracking-wider mb-1">
+                  Report Category
+                </label>
                 <select
                   value={reportType}
                   onChange={(e) => setReportType(e.target.value)}
-                  className="w-full text-xs font-semibold"
+                  className="w-full text-xs font-bold bg-[#0b1329] text-white border border-white/20 rounded-xl p-2.5 shadow-inner"
                 >
-                  <option value="Unsafe Act">Unsafe Act (UA)</option>
-                  <option value="Unsafe Condition">Unsafe Condition (UC)</option>
-                  <option value="Near-Miss">Near-Miss (NM)</option>
+                  <option value="Unsafe Act" className="bg-[#0b1329] text-white">Unsafe Act (UA)</option>
+                  <option value="Unsafe Condition" className="bg-[#0b1329] text-white">Unsafe Condition (UC)</option>
+                  <option value="Near-Miss" className="bg-[#0b1329] text-white">Near-Miss (NM)</option>
                 </select>
               </div>
             </div>
 
             {/* Textarea Input */}
             <div>
-              <label className="text-[11px] text-slate-400 block font-bold uppercase tracking-wider mb-1">
+              <label className="text-[11px] text-slate-300 block font-bold uppercase tracking-wider mb-1">
                 Incident Free-Text Log ({inputText.length} chars)
               </label>
               <textarea
@@ -221,7 +225,7 @@ export default function LiveAnalyzer({ initialIncident, onSaveToDataset, onOpenD
                 onChange={(e) => setInputText(e.target.value)}
                 rows={8}
                 placeholder="Type or paste unstructured safety report text..."
-                className="w-full font-mono text-xs leading-relaxed"
+                className="w-full font-mono text-xs text-white bg-[#0b1329] placeholder-slate-400 border border-white/20 rounded-xl p-3.5 leading-relaxed focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
               />
             </div>
 
