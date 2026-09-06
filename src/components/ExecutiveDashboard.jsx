@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { 
   AlertTriangle, ShieldAlert, CheckCircle2, Flame, ArrowUpRight, ArrowDownRight,
-  Layers, Activity, FileText, Download, Target, MapPin, Grid
+  Layers, Activity, FileText, Download, Target, MapPin, Grid, TrendingUp
 } from 'lucide-react';
 import { 
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, 
-  PieChart, Pie, Cell, Legend
+  PieChart, Pie, Cell, Legend, AreaChart, Area
 } from 'recharts';
 import { detectPatterns, calculateSIFDensity } from '../services/nlpEngine';
 
@@ -46,7 +46,18 @@ export default function ExecutiveDashboard({ dataset, onSelectIncident, onOpenDi
     fill: '#f59e0b'
   }));
 
-  const criticalAlerts = sifPrecursors.sort((a, b) => b.priorityScore - a.priorityScore).slice(0, 3);
+  // Trend Data for AreaChart
+  const trendData = useMemo(() => {
+    const grouped = {};
+    dataset.forEach(d => {
+      if (!d.date) return;
+      const dateKey = d.date.substring(5); // e.g., '08-25'
+      if (!grouped[dateKey]) grouped[dateKey] = { date: dateKey, SIF: 0, Total: 0 };
+      grouped[dateKey].Total++;
+      if (d.isSifPotential) grouped[dateKey].SIF++;
+    });
+    return Object.values(grouped).sort((a, b) => a.date.localeCompare(b.date));
+  }, [dataset]);
 
   return (
     <div className="space-y-8 animate-holo-boot">
@@ -84,23 +95,29 @@ export default function ExecutiveDashboard({ dataset, onSelectIncident, onOpenDi
       {/* Holographic Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        {/* Bar Chart: Density by Site */}
+        {/* Area Chart: Trend Over Time */}
         <div className="lg:col-span-8 glass-panel p-7">
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-base font-black text-white flex items-center gap-2.5">
-              <MapPin className="w-5 h-5 text-amber-400" /> SIF Density by Site (%)
+              <TrendingUp className="w-5 h-5 text-cyan-400" /> SIF Precursor Volume Trend
             </h3>
           </div>
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={siteChartData} margin={{ top: 15, right: 15, left: -20, bottom: 25 }}>
-                <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} angle={-15} textAnchor="end" interval={0}/>
+              <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorSIF" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#ef4444" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="date" stroke="#94a3b8" fontSize={11} />
                 <YAxis stroke="#94a3b8" fontSize={11} />
                 <Tooltip contentStyle={{ backgroundColor: '#030712', borderColor: 'rgba(255,255,255,0.15)', borderRadius: '16px' }} />
-                <Bar dataKey="density" radius={[8, 8, 0, 0]}>
-                  {siteChartData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
-                </Bar>
-              </BarChart>
+                <Legend verticalAlign="top" height={36} formatter={(value) => <span className="text-xs font-bold text-slate-300">{value}</span>} />
+                <Area type="monotone" dataKey="Total" stroke="#10b981" fillOpacity={0} strokeWidth={2} name="Total Reports" />
+                <Area type="monotone" dataKey="SIF" stroke="#ef4444" fill="url(#colorSIF)" strokeWidth={3} name="SIF-Potential" />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
@@ -124,7 +141,28 @@ export default function ExecutiveDashboard({ dataset, onSelectIncident, onOpenDi
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        {/* Bar Chart: Density by Site */}
+        <div className="glass-panel p-7">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-base font-black text-white flex items-center gap-2.5">
+              <MapPin className="w-5 h-5 text-amber-400" /> Site SIF Density
+            </h3>
+          </div>
+          <div className="h-48 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={siteChartData} margin={{ top: 15, right: 0, left: -20, bottom: 25 }}>
+                <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} angle={-15} textAnchor="end" interval={0}/>
+                <YAxis stroke="#94a3b8" fontSize={11} />
+                <Tooltip contentStyle={{ backgroundColor: '#030712', borderColor: 'rgba(255,255,255,0.15)', borderRadius: '8px' }} />
+                <Bar dataKey="density" radius={[4, 4, 0, 0]} name="Density %">
+                  {siteChartData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.fill} />)}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
         
         {/* Top Barrier Failures */}
         <div className="glass-panel p-7">
@@ -144,14 +182,13 @@ export default function ExecutiveDashboard({ dataset, onSelectIncident, onOpenDi
         {/* Systemic Patterns */}
         <div className="glass-panel p-7">
           <h3 className="text-base font-black text-white flex items-center gap-2.5 mb-4">
-            <Grid className="w-5 h-5 text-purple-400" /> Recurring Precursor Patterns
+            <Grid className="w-5 h-5 text-purple-400" /> High-Risk Activities
           </h3>
           <div className="space-y-3">
             {patterns.slice(0,5).map((p, i) => (
               <div key={i} className="flex justify-between items-center bg-slate-950 p-3 rounded-lg border border-slate-800">
                 <span className="text-xs font-semibold text-slate-300">{i+1}. {p.pattern}</span>
                 <div className="text-right">
-                  <div className="text-xs font-mono font-bold text-purple-400">{p.occurrences} total</div>
                   <div className="text-[10px] text-red-400 font-bold">{p.sifCount} SIF</div>
                 </div>
               </div>

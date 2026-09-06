@@ -10,6 +10,7 @@ export default function BatchAnalyzer({ dataset, setDataset, onSelectIncident, o
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [facilityFilter, setFacilityFilter] = useState('ALL');
   const [reviewFilter, setReviewFilter] = useState('ALL');
+  const [dateFilter, setDateFilter] = useState('ALL');
 
   const facilities = Array.from(new Set(dataset.map(d => d.facility)));
 
@@ -30,7 +31,19 @@ export default function BatchAnalyzer({ dataset, setDataset, onSelectIncident, o
     const matchesReview = 
       reviewFilter === 'ALL' ? true : item.reviewStatus === reviewFilter;
 
-    return matchesSearch && matchesStatus && matchesFacility && matchesReview;
+    const matchesDate = (() => {
+      if (dateFilter === 'ALL') return true;
+      const d = new Date(item.date);
+      const now = new Date();
+      const diffTime = Math.abs(now - d);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      if (dateFilter === 'LAST_7_DAYS') return diffDays <= 7;
+      if (dateFilter === 'LAST_30_DAYS') return diffDays <= 30;
+      if (dateFilter === 'THIS_YEAR') return d.getFullYear() === now.getFullYear();
+      return true;
+    })();
+
+    return matchesSearch && matchesStatus && matchesFacility && matchesReview && matchesDate;
   });
 
   const handleFileUpload = (e) => {
@@ -142,6 +155,14 @@ export default function BatchAnalyzer({ dataset, setDataset, onSelectIncident, o
             <option value="ACCEPTED">Accepted</option>
             <option value="REJECTED">Rejected</option>
             <option value="EDITED">Edited</option>
+          </select>
+        </div>
+        <div>
+          <select value={dateFilter} onChange={(e) => setDateFilter(e.target.value)} className="w-full text-xs bg-[#0b1329] border-slate-700 rounded-lg p-2.5 text-white">
+            <option value="ALL">All Time</option>
+            <option value="LAST_7_DAYS">Last 7 Days</option>
+            <option value="LAST_30_DAYS">Last 30 Days</option>
+            <option value="THIS_YEAR">This Year</option>
           </select>
         </div>
       </div>
