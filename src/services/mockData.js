@@ -8,7 +8,7 @@ export const SAMPLE_INCIDENT_PRESETS = [
     language: 'English',
     location: 'Duliajan Drilling Rig #4',
     category: 'Unsafe Act',
-    text: 'During monkey board pipe latching operation at Duliajan Rig #4 (height ~28 meters), roughneck was observed working without fall arrest harness hooked to safety wire. High wind conditions prevailed with no toe board installed.'
+    text: 'During monkey board pipe latching operation at Duliajan Rig #4 (height ~28 meters), roughneck was observed working without harness. High wind conditions prevailed.'
   },
   {
     id: 'PRESET-02',
@@ -16,7 +16,7 @@ export const SAMPLE_INCIDENT_PRESETS = [
     language: 'English',
     location: 'Digboi Refinery Unit 3',
     category: 'Unsafe Condition',
-    text: 'A high pressure 1200 PSI steam manifold valve at Digboi Refinery unit showed severe vibration and flange bolts unthreading under stored pressure. Isolation valve was bypassed and no LOTO applied.'
+    text: 'A high pressure 1200 PSI steam manifold valve at Digboi Refinery unit showed severe vibration. Isolation valve was bypassed and no loto applied.'
   },
   {
     id: 'PRESET-03',
@@ -24,7 +24,7 @@ export const SAMPLE_INCIDENT_PRESETS = [
     language: 'Hindi/Assamese',
     location: 'Moran Gas Field',
     category: 'Near-Miss',
-    text: 'Moran gas field compression plant ke paas gas test omitted before hot welding. Worker reported H2S gas leak smell near separator tank. Bina harness and bina gas test gas check nahi kiya.'
+    text: 'Moran gas field compression plant ke paas no gas test before hot welding. Worker reported h2s gas leak smell near separator tank.'
   },
   {
     id: 'PRESET-04',
@@ -32,7 +32,7 @@ export const SAMPLE_INCIDENT_PRESETS = [
     language: 'English',
     location: 'Nahorkatia Tank Farm',
     category: 'Unsafe Condition',
-    text: 'Mobile crane wire rope hoisting 5-ton drill pipe had 4 broken strands and frayed core. Rigging team was standing under suspended load without exclusion zone barriers.'
+    text: 'Mobile crane wire rope hoisting 5-ton drill pipe had frayed core. Rigging team was standing under suspended load.'
   },
   {
     id: 'PRESET-05',
@@ -40,133 +40,48 @@ export const SAMPLE_INCIDENT_PRESETS = [
     language: 'English',
     location: 'Guwahati Pipeline Station 5',
     category: 'Unsafe Condition',
-    text: 'Discarded wooden pallet and empty oil drum left on pedestrian walkway near office entrance causing minor tripping hazard. Path cleared by contractor.'
+    text: 'Discarded wooden pallet and empty oil drum left on pedestrian walkway near office entrance causing minor tripping hazard.'
   }
 ];
 
-// Generate 50 realistic OIL safety incident records pre-processed with NLP Engine
+// Generate 35 realistic OIL safety incident records pre-processed with NLP Engine
 export function getInitialDataset() {
   const rawDataset = [
-    {
-      id: 'OIL-2026-001',
-      date: '2026-09-02',
-      facility: 'Duliajan Drilling Rig #4',
-      reporterRole: 'Drilling Supervisor',
-      reportType: 'Unsafe Act',
-      description: 'Derrickman observed working on monkey board at 25m height without hooking full body harness lanyard. High winds recorded at site.'
-    },
-    {
-      id: 'OIL-2026-002',
-      date: '2026-09-02',
-      facility: 'Digboi Refinery Unit 3',
-      reporterRole: 'HSE Officer',
-      reportType: 'Unsafe Condition',
-      description: 'High pressure line flange near mud pump showing 850 PSI pressure without relief valve calibration tag. LOTO isolation skipped during shift handover.'
-    },
-    {
-      id: 'OIL-2026-003',
-      date: '2026-09-01',
-      facility: 'Moran Gas Field',
-      reporterRole: 'Production Engineer',
-      reportType: 'Near-Miss',
-      description: 'Portable gas test omitted before hot welding near separator tank. Minor H2S gas odor detected by technician (12 ppm). Work stopped immediately.'
-    },
-    {
-      id: 'OIL-2026-004',
-      date: '2026-09-01',
-      facility: 'Nahorkatia Tank Farm',
-      reporterRole: 'Rigging Lead',
-      reportType: 'Unsafe Condition',
-      description: 'Hydraulic crane hoisting 6-ton casing pipe had frayed wire rope. Two helpers standing directly under suspended load.'
-    },
-    {
-      id: 'OIL-2026-005',
-      date: '2026-08-31',
-      facility: 'Guwahati Pipeline Station 5',
-      reporterRole: 'Maintenance Tech',
-      reportType: 'Unsafe Act',
-      description: 'Technician opened 440V DB electrical box without rubber insulating gloves. Live cable terminal exposed.'
-    },
-    {
-      id: 'OIL-2026-006',
-      date: '2026-08-31',
-      facility: 'Duliajan Rig #12',
-      reporterRole: 'Roustabout',
-      reportType: 'Near-Miss',
-      description: 'Dropped object hazard: 3kg heavy wrench fell from rotary table sub-structure height 6 meters, landing 1 meter away from mud logger.'
-    },
-    {
-      id: 'OIL-2026-007',
-      date: '2026-08-30',
-      facility: 'Jorhat Oil Field',
-      reporterRole: 'Field Operator',
-      reportType: 'Unsafe Condition',
-      description: 'Confined space entry into crude storage tank performed without pre-entry gas test or standby rescue team.'
-    },
-    {
-      id: 'OIL-2026-008',
-      date: '2026-08-30',
-      facility: 'Makum Production Hub',
-      reporterRole: 'Safety Inspector',
-      reportType: 'Unsafe Act',
-      description: 'Hot work welding performed near fuel gas scrubber without fire watch or fire extinguisher present.'
-    },
-    {
-      id: 'OIL-2026-009',
-      date: '2026-08-29',
-      facility: 'Duliajan Central Tank Farm',
-      reporterRole: 'Store Keeper',
-      reportType: 'Unsafe Condition',
-      description: 'Water puddle on office hallway tile floor caused slips. Housekeeping staff notified.'
-    },
-    {
-      id: 'OIL-2026-010',
-      date: '2026-08-29',
-      facility: 'Digboi Refinery Unit 3',
-      reporterRole: 'Electrical Lead',
-      reportType: 'Unsafe Act',
-      description: 'Electrician bypassing LOTO lock on motor control center while maintenance ongoing.'
-    },
-    {
-      id: 'OIL-2026-011',
-      date: '2026-08-28',
-      facility: 'Moran Gas Field',
-      reporterRole: 'Pipeline Supervisor',
-      reportType: 'Unsafe Condition',
-      description: 'Scaffolding pipe clamp loose on 4-meter working platform. Guardrail missing on east side.'
-    },
-    {
-      id: 'OIL-2026-012',
-      date: '2026-08-28',
-      facility: 'Duliajan Drilling Rig #4',
-      reporterRole: 'Assistant Driller',
-      reportType: 'Unsafe Condition',
-      description: 'Top drive hydraulic hose showing outer sheath bulge under 2500 PSI operating pressure.'
-    },
-    {
-      id: 'OIL-2026-013',
-      date: '2026-08-27',
-      facility: 'Guwahati Pipeline Station 5',
-      reporterRole: 'Instrument Tech',
-      reportType: 'Unsafe Condition',
-      description: 'Safety sign missing near high voltage transformer yard. Replacement requested.'
-    },
-    {
-      id: 'OIL-2026-014',
-      date: '2026-08-27',
-      facility: 'Nahorkatia Tank Farm',
-      reporterRole: 'Safety Inspector',
-      reportType: 'Unsafe Act',
-      description: 'Contractor working at height 5m on ladder without securing ladder top or wearing harness.'
-    },
-    {
-      id: 'OIL-2026-015',
-      date: '2026-08-26',
-      facility: 'Jorhat Oil Field',
-      reporterRole: 'ChemTech',
-      reportType: 'Near-Miss',
-      description: 'Chemical splash mask cracked during acid injection pump flushing. Minor drop hit apron.'
-    }
+    { id: 'OIL-2026-001', date: '2026-09-02', facility: 'Duliajan Drilling Rig #4', reportType: 'Unsafe Act', description: 'Derrickman working on monkey board at 25m height without harness. Fall hazard.' },
+    { id: 'OIL-2026-002', date: '2026-09-02', facility: 'Digboi Refinery Unit 3', reportType: 'Unsafe Condition', description: 'High pressure line flange showing 850 PSI pressure. loto bypassed during shift handover.' },
+    { id: 'OIL-2026-003', date: '2026-09-01', facility: 'Moran Gas Field', reportType: 'Near-Miss', description: 'No gas test before hot welding near separator tank. Minor h2s detected.' },
+    { id: 'OIL-2026-004', date: '2026-09-01', facility: 'Nahorkatia Tank Farm', reportType: 'Unsafe Condition', description: 'Hydraulic crane hoisting pipe. Two helpers standing under suspended load.' },
+    { id: 'OIL-2026-005', date: '2026-08-31', facility: 'Guwahati Pipeline Station 5', reportType: 'Unsafe Act', description: 'Technician opened 440V DB electrical box. Live wire exposed, no loto.' },
+    { id: 'OIL-2026-006', date: '2026-08-31', facility: 'Duliajan Rig #12', reportType: 'Near-Miss', description: 'Dropped wrench fell from rotary table height 6 meters.' },
+    { id: 'OIL-2026-007', date: '2026-08-30', facility: 'Jorhat Oil Field', reportType: 'Unsafe Condition', description: 'Confined space entry into storage tank performed. No gas test.' },
+    { id: 'OIL-2026-008', date: '2026-08-30', facility: 'Makum Production Hub', reportType: 'Unsafe Act', description: 'Hot work welding performed near fuel gas scrubber. No ptw issued.' },
+    { id: 'OIL-2026-009', date: '2026-08-29', facility: 'Duliajan Central Tank Farm', reportType: 'Unsafe Condition', description: 'Water puddle on office hallway tile floor caused slips.' },
+    { id: 'OIL-2026-010', date: '2026-08-29', facility: 'Digboi Refinery Unit 3', reportType: 'Unsafe Act', description: 'Electrician bypassed loto lock on motor control center.' },
+    { id: 'OIL-2026-011', date: '2026-08-28', facility: 'Moran Gas Field', reportType: 'Unsafe Condition', description: 'Scaffolding pipe clamp loose on 4-meter working platform. Fall risk.' },
+    { id: 'OIL-2026-012', date: '2026-08-28', facility: 'Duliajan Drilling Rig #4', reportType: 'Unsafe Condition', description: 'Top drive hydraulic hose showing outer sheath bulge under high pressure.' },
+    { id: 'OIL-2026-013', date: '2026-08-27', facility: 'Guwahati Pipeline Station 5', reportType: 'Unsafe Condition', description: 'Safety sign missing near high voltage transformer yard.' },
+    { id: 'OIL-2026-014', date: '2026-08-27', facility: 'Nahorkatia Tank Farm', reportType: 'Unsafe Act', description: 'Contractor working at height 5m on ladder without harness.' },
+    { id: 'OIL-2026-015', date: '2026-08-26', facility: 'Jorhat Oil Field', reportType: 'Near-Miss', description: 'Chemical splash mask cracked during acid injection pump flushing.' },
+    { id: 'OIL-2026-016', date: '2026-08-25', facility: 'Moran Gas Field', reportType: 'Unsafe Condition', description: 'Entering confined space for cleaning. No gas test was done.' },
+    { id: 'OIL-2026-017', date: '2026-08-25', facility: 'Digboi Refinery Unit 3', reportType: 'Unsafe Act', description: 'Vessel inspection ongoing. No gas test completed prior to entry.' },
+    { id: 'OIL-2026-018', date: '2026-08-24', facility: 'Moran Gas Field', reportType: 'Unsafe Condition', description: 'Confined space work in trench. No gas test.' },
+    { id: 'OIL-2026-019', date: '2026-08-24', facility: 'Digboi Refinery Unit 1', reportType: 'Unsafe Act', description: 'Maintenance on pump, loto bypassed.' },
+    { id: 'OIL-2026-020', date: '2026-08-23', facility: 'Digboi Refinery Unit 3', reportType: 'Near-Miss', description: 'Valve maintenance started. loto bypassed.' },
+    { id: 'OIL-2026-021', date: '2026-08-23', facility: 'Duliajan Drilling Rig #4', reportType: 'Unsafe Act', description: 'Without harness on the scaffold, fall potential.' },
+    { id: 'OIL-2026-022', date: '2026-08-22', facility: 'Duliajan Drilling Rig #4', reportType: 'Unsafe Condition', description: 'Worker at height, without harness.' },
+    { id: 'OIL-2026-023', date: '2026-08-22', facility: 'Nahorkatia Tank Farm', reportType: 'Unsafe Act', description: 'Crane lifting load. Worker standing under suspended load.' },
+    { id: 'OIL-2026-024', date: '2026-08-21', facility: 'Nahorkatia Tank Farm', reportType: 'Near-Miss', description: 'Rigging operation. Standing under suspended load.' },
+    { id: 'OIL-2026-025', date: '2026-08-21', facility: 'Makum Production Hub', reportType: 'Unsafe Act', description: 'Hot work ongoing. No permit.' },
+    { id: 'OIL-2026-026', date: '2026-08-20', facility: 'Makum Production Hub', reportType: 'Unsafe Act', description: 'Grinding near tank, no ptw.' },
+    { id: 'OIL-2026-027', date: '2026-08-20', facility: 'Makum Production Hub', reportType: 'Unsafe Condition', description: 'Welding activity found, no ptw.' },
+    { id: 'OIL-2026-028', date: '2026-08-19', facility: 'Jorhat Oil Field', reportType: 'Near-Miss', description: 'Confined space entry, no gas test.' },
+    { id: 'OIL-2026-029', date: '2026-08-19', facility: 'Jorhat Oil Field', reportType: 'Unsafe Act', description: 'Entered trench. No gas test.' },
+    { id: 'OIL-2026-030', date: '2026-08-18', facility: 'Duliajan Rig #12', reportType: 'Unsafe Condition', description: 'Without harness on derrick.' },
+    { id: 'OIL-2026-031', date: '2026-08-18', facility: 'Guwahati Pipeline Station 5', reportType: 'Near-Miss', description: 'Driving truck over speed limit on site.' },
+    { id: 'OIL-2026-032', date: '2026-08-17', facility: 'Guwahati Pipeline Station 5', reportType: 'Unsafe Act', description: 'Driving without seatbelt.' },
+    { id: 'OIL-2026-033', date: '2026-08-17', facility: 'Digboi Refinery Unit 1', reportType: 'Unsafe Condition', description: 'Leak from cooling water line, non-hazardous.' },
+    { id: 'OIL-2026-034', date: '2026-08-16', facility: 'Digboi Refinery Unit 1', reportType: 'Unsafe Condition', description: 'Trash bin overflowing.' },
+    { id: 'OIL-2026-035', date: '2026-08-16', facility: 'Moran Gas Field', reportType: 'Unsafe Act', description: 'No ptw for hot work.' }
   ];
 
   // Process all items through our real NLP engine
